@@ -1,6 +1,6 @@
 import { describe, it, expect } from "@jest/globals";
 import { mount } from "@vue/test-utils";
-import SubNav from "@/components/SubNav.vue";
+import SubNav from "@/components/Navigation/SubNav.vue";
 
 describe("SubNav.vue", () => {
   describe("when  user is on job page", () => {

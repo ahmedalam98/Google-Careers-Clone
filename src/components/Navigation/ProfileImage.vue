@@ -11,7 +11,7 @@ export default {
   name: "ProfileImage",
   data() {
     return {
-      imageSrc: require("../assets/user.jpeg"),
+      imageSrc: require("../../assets/user.jpeg"),
     };
   },
 };

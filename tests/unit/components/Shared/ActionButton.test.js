@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import ActionButton from "@/components/ActionButton.vue";
+import ActionButton from "@/components/Shared/ActionButton.vue";
 import { describe, expect, it } from "@jest/globals";
 
 describe("ActionButton.vue", () => {

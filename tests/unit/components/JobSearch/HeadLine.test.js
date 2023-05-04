@@ -1,4 +1,4 @@
-import HeadLine from "@/components/HeadLine.vue";
+import HeadLine from "@/components/JobSearch/HeadLine.vue";
 import { mount } from "@vue/test-utils";
 import { nextTick } from "vue";
 import { describe, it, expect, beforeEach, afterEach } from "@jest/globals";
