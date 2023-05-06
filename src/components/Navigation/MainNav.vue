@@ -5,24 +5,24 @@
       <div
         class="flex flex-nowrap h-full px-8 mx-auto border-b border-solid border-brand-gray-1"
       >
-        <a
-          :href="url"
-          class="flex items-center h-full text-xl text-gray-600 pb-0.5"
-          >{{ company }}</a
+        <router-link
+          to="/"
+          class="flex items-center h-full text-xl text-gray-700 pb-0.5"
+          >Google Careers</router-link
         >
         <nav class="h-full ml-12">
           <ul class="flex h-full p-0 m-0 list-none">
             <!-- first:ml-0 --- after setting up a variant inside tailwind.config means that the first element will not have a margin-left like the rest of list items -->
             <li
               v-for="menuItem in menuItems"
-              :key="menuItem"
+              :key="menuItem.text"
               class="h-full ml-9 first:ml-0"
               data-test="main-nav-list-item"
             >
-              <a
-                href=""
-                class="flex items-center h-full py-2.5 text-gray-600 hover:text-gray-900"
-                >{{ menuItem }}</a
+              <router-link
+                :to="menuItem.url"
+                class="flex items-center h-full py-2.5 text-gray-700 hover:text-gray-950"
+                >{{ menuItem.text }}</router-link
               >
             </li>
           </ul>
@@ -62,14 +62,20 @@ export default {
   computed: {
     // to fix the MainNav & SubNav are hiding the Hero component
     headerHeightClass() {
-      return this.isLoggedIn ? "h-32" : "h-16";
+      return (this.$route.name === "JobResults") & this.isLoggedIn
+        ? "h-32"
+        : "h-16";
     },
   },
   data() {
     return {
-      company: "Google Careers",
-      url: "/",
-      menuItems: ["Teams", "Location", "Benefits", "Jobs", "Students"],
+      menuItems: [
+        { text: "Teams", url: "/" },
+        { text: "Location", url: "/" },
+        { text: "Benefits", url: "/" },
+        { text: "Jobs", url: "/jobs/results" },
+        { text: "Students", url: "/" },
+      ],
       isLoggedIn: false,
     };
   },
