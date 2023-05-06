@@ -13,6 +13,11 @@ describe("MainNav.vue", () => {
   const createConfig = () => {
     return {
       global: {
+        mocks: {
+          $route: {
+            name: "JobResults",
+          },
+        },
         stubs: {
           // RouterLinkStub : needed to stub the router-link component as a common problem because it is not available in the test environment.
           // If we use a normal stub the test suite won't detect the text inside the router-link component.
