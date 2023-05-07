@@ -40,6 +40,11 @@ const router = createRouter({
   // we set it and forget it. it will keep track of the history of user routes backwords and forwards.
   history: createWebHashHistory(),
   routes,
+
+  // scrollBehavior is a function that returns an object with the x and y coordinates of the scroll position.
+  scrollBehavior() {
+    return { top: 0, behavior: "smooth" };
+  },
 });
 
 export default router;
