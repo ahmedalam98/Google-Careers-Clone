@@ -7,17 +7,23 @@
         :job="job"
         data-test="job-listing"
       ></JobListing>
+      <h1 v-if="currentPage > 10" class="text-2xl text-center">
+        No jobs found
+      </h1>
     </ol>
 
     <div class="mt-8 mx-auto">
       <div class="flex flex-row flex-nowrap">
-        <p class="text-sm flex-grow">Page {{ currentPage }}</p>
+        <p class="text-sm flex-grow" v-if="currentPage <= 10">
+          Page {{ currentPage }}
+        </p>
 
         <div class="flex items-center justify-center">
           <router-link
-            v-if="previousPage"
+            v-if="previousPage && currentPage <= 10"
             :to="{ name: 'JobResults', query: { page: previousPage } }"
             class="mx-3 text-sn font-semibold text-brand-blue-1"
+            data-test="previous-page-link"
             >Previous</router-link
           >
 
@@ -25,6 +31,7 @@
             v-if="nextPage"
             :to="{ name: 'JobResults', query: { page: nextPage } }"
             class="mx-3 text-sn font-semibold text-brand-blue-1"
+            data-test="next-page-link"
             >Next</router-link
           >
         </div>
@@ -35,8 +42,8 @@
 
 <script>
 import axios from "axios";
-
 import JobListing from "@/components/JobResults/JobListing.vue";
+
 export default {
   name: "JobListings",
   components: {
@@ -78,7 +85,8 @@ export default {
     },
   },
   async mounted() {
-    const response = await axios.get("http://localhost:3000/jobs");
+    const baseUrl = process.env.VUE_APP_API_URL;
+    const response = await axios.get(`${baseUrl}/jobs`);
     this.jobs = response.data;
   },
 };
