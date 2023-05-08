@@ -34,7 +34,7 @@
             text="Sign in"
             type="primary"
             data-test="login-button"
-            @click="handleLogin"
+            @click="LOGIN_USER"
           />
         </div>
       </div>
@@ -44,9 +44,12 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
+
 import ActionButton from "../Shared/ActionButton.vue";
 import ProfileImage from "./ProfileImage.vue";
 import SubNav from "./SubNav.vue";
+
 export default {
   name: "MainNav",
   components: {
@@ -54,10 +57,16 @@ export default {
     ProfileImage,
     SubNav,
   },
-  methods: {
-    handleLogin() {
-      this.isLoggedIn = true;
-    },
+  data() {
+    return {
+      menuItems: [
+        { text: "Teams", url: "/" },
+        { text: "Location", url: "/" },
+        { text: "Benefits", url: "/" },
+        { text: "Students", url: "/" },
+        { text: "Jobs", url: "/jobs/results" },
+      ],
+    };
   },
   computed: {
     // to fix the MainNav & SubNav are hiding the Hero component
@@ -66,18 +75,25 @@ export default {
         ? "h-32"
         : "h-16";
     },
+    // 1) store state as computed property
+    // isLoggedIn() {
+    //   return this.$store.state.isLoggedIn;
+    // },
+
+    // 2) store state as using mapState
+    // same as above
+    // return the state of isLoggedIn from the store
+    ...mapState(["isLoggedIn"]),
   },
-  data() {
-    return {
-      menuItems: [
-        { text: "Teams", url: "/" },
-        { text: "Location", url: "/" },
-        { text: "Benefits", url: "/" },
-        { text: "Jobs", url: "/jobs/results" },
-        { text: "Students", url: "/" },
-      ],
-      isLoggedIn: false,
-    };
+  methods: {
+    // 1) store mutation as method
+    // handleLogin() {
+    //   return this.$store.commit("LOGIN_USER");
+    // },
+
+    // 2) store mutation as using mapMutations
+    // same as above
+    ...mapMutations(["LOGIN_USER"]),
   },
 };
 </script>
