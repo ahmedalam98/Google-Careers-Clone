@@ -1,6 +1,7 @@
 import { describe, it, expect } from "@jest/globals";
 import { shallowMount, RouterLinkStub } from "@vue/test-utils";
 import MainNav from "@/components/Navigation/MainNav.vue";
+import jest from "jest";
 
 describe("MainNav.vue", () => {
   // Refactoring Test Suite Method 1) :
@@ -10,13 +11,14 @@ describe("MainNav.vue", () => {
 
   // Refactoring Test Suite Method 2) :
   // -----> pure vanilla funtion returns the repeatable part to make it more readable code if there's a lot of tests.
-  const createConfig = () => {
+  const createConfig = ($store) => {
     return {
       global: {
         mocks: {
           $route: {
             name: "JobResults",
           },
+          $store,
         },
         stubs: {
           // RouterLinkStub : needed to stub the router-link component as a common problem because it is not available in the test environment.
@@ -29,12 +31,22 @@ describe("MainNav.vue", () => {
   };
 
   it("displays company name", () => {
-    const wrapper = shallowMount(MainNav, createConfig());
+    const $store = {
+      state: {
+        isLoggedIn: false,
+      },
+    };
+    const wrapper = shallowMount(MainNav, createConfig($store));
     expect(wrapper.text()).toMatch("Google Careers");
   });
 
-  it("displays menu items for navigation", async () => {
-    const wrapper = shallowMount(MainNav, createConfig());
+  it("displays menu items for navigation", () => {
+    const $store = {
+      state: {
+        isLoggedIn: false,
+      },
+    };
+    const wrapper = shallowMount(MainNav, createConfig($store));
     const navigationMenuItems = wrapper.findAll(
       "[data-test='main-nav-list-item']"
     );
@@ -43,39 +55,68 @@ describe("MainNav.vue", () => {
       "Teams",
       "Location",
       "Benefits",
-      "Jobs",
       "Students",
+      "Jobs",
     ]);
   });
 
   describe("when user is logged out", () => {
     it("prompts user to sign in", () => {
-      const wrapper = shallowMount(MainNav, createConfig());
+      const $store = {
+        state: {
+          isLoggedIn: false,
+        },
+      };
+      const wrapper = shallowMount(MainNav, createConfig($store));
       const loginButton = wrapper.find("[data-test='login-button']");
       expect(loginButton.exists()).toBe(true);
+    });
+
+    it("issues call to Vuex to login user", async () => {
+      const commit = jest.fn();
+      const $store = {
+        state: {
+          isLoggedIn: false,
+        },
+        commit,
+      };
+      const wrapper = shallowMount(MainNav, createConfig($store));
+      const loginButton = wrapper.find("[data-test='login-button']");
+      await loginButton.trigger("click");
+      expect(commit.toHaveBeenCalledWith("LOGIN_USER"));
     });
   });
 
   // we simulate a user clicking the login button and then we check if the profile image is displayed.
   describe("when user is logged in", () => {
-    it("displays user profile image", async () => {
-      const wrapper = shallowMount(MainNav, createConfig());
-      let profileImage = wrapper.find("[data-test='profile-image']");
-      expect(profileImage.exists()).toBe(false);
-      const loginButton = wrapper.find("[data-test='login-button']");
-      await loginButton.trigger("click");
+    it("displays user profile image", () => {
+      const $store = {
+        state: {
+          isLoggedIn: true,
+        },
+      };
+      const wrapper = shallowMount(MainNav, createConfig($store));
+      // let profileImage = wrapper.find("[data-test='profile-image']");
+      // expect(profileImage.exists()).toBe(false);
+      // const loginButton = wrapper.find("[data-test='login-button']");
+      // await loginButton.trigger("click");
       // we need to re-find the profile image because the component has been updated so unfortunately if we don't re-find we get a reference to null node.
-      profileImage = wrapper.find("[data-test='profile-image']");
+      const profileImage = wrapper.find("[data-test='profile-image']");
       expect(profileImage.exists()).toBe(true);
     });
 
-    it("display subnavigation menu with additional information", async () => {
-      const wrapper = shallowMount(MainNav, createConfig());
-      let subnav = wrapper.find("[data-test='subnav']");
-      expect(subnav.exists()).toBe(false);
-      const loginButton = wrapper.find("[data-test='login-button']");
-      await loginButton.trigger("click");
-      subnav = wrapper.find("[data-test='subnav']");
+    it("display subnavigation menu with additional information", () => {
+      const $store = {
+        state: {
+          isLoggedIn: true,
+        },
+      };
+      const wrapper = shallowMount(MainNav, createConfig($store));
+      // let subnav = wrapper.find("[data-test='subnav']");
+      // expect(subnav.exists()).toBe(false);
+      // const loginButton = wrapper.find("[data-test='login-button']");
+      // await loginButton.trigger("click");
+      const subnav = wrapper.find("[data-test='subnav']");
       expect(subnav.exists()).toBe(true);
     });
   });
