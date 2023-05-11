@@ -20,7 +20,7 @@
     <!-----------Spotlight slot injection----------->
     <Spotlight class="flex flex-row justify-center pb-16 px-4">
       <!--slotProps is the object of data for spotlights, you can assign any name to it-->
-      <template #default="slotProps">
+      <template #default="{ img, title, description }">
         <router-link
           to="/jobs/results"
           class="flex flex-col mx-5 border rounded-lg w-72 bg-brand-gray-2 h-96"
@@ -28,13 +28,13 @@
         >
           <div
             class="flex flex-col justify-end h-full bg-cover"
-            :style="{ backgroundImage: 'url(' + slotProps.spotlight.img + ')' }"
+            :style="{ backgroundImage: 'url(' + img + ')' }"
           >
             <div class="text-white">
               <div class="px-6 py-4">
-                <h3 class="text-3xl">{{ slotProps.spotlight.title }}</h3>
+                <h3 class="text-3xl">{{ title }}</h3>
                 <p class="pt-4 text-xl">
-                  {{ slotProps.spotlight.description }}
+                  {{ description }}
                 </p>
               </div>
             </div>
