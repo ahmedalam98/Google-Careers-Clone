@@ -1,4 +1,4 @@
-import { state, mutations, actions } from "@/store/index.js";
+import { state, mutations, getters, actions } from "@/store/index.js";
 import { describe, it, expect, beforeEach } from "@jest/globals";
 
 import getJobs from "@/api/getJobs";
@@ -16,6 +16,11 @@ describe("state", () => {
     const startingState = state();
     expect(startingState.jobs).toEqual([]);
   });
+
+  it("stores organizations that user has chosen to filter jobs by", () => {
+    const startingState = state();
+    expect(startingState.selectedOrganizations).toEqual([]);
+  });
 });
 
 describe("mutations", () => {
@@ -32,6 +37,30 @@ describe("mutations", () => {
       const state = { jobs: [] };
       mutations.RECIEVE_JOBS(state, ["Job 1", "Job 2"]);
       expect(state).toEqual({ jobs: ["Job 1", "Job 2"] });
+    });
+  });
+
+  describe("ADD_SELECTED_ORGANIZATIONS", () => {
+    it("updates organizations that user has chosen to filter jobs by", () => {
+      const state = { selectedOrganizations: [] };
+      mutations.ADD_SELECTED_ORGANIZATIONS(state, ["Org1", "Org2"]);
+      expect(state).toEqual({ selectedOrganizations: ["Org1", "Org2"] });
+    });
+  });
+
+  describe("getters", () => {
+    describe("UNIQUE_ORGANIZATIONS", () => {
+      it("finds unique organizations from list of jobs", () => {
+        const state = {
+          jobs: [
+            { organization: "Google" },
+            { organization: "Amazon" },
+            { organization: "Google" },
+          ],
+        };
+        const result = getters.UNIQUE_ORGANIZATIONS(state);
+        expect(result).toEqual(new Set(["Google", "Amazon"]));
+      });
     });
   });
 
