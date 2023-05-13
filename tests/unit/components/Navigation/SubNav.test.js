@@ -4,12 +4,13 @@ import SubNav from "@/components/Navigation/SubNav.vue";
 
 describe("SubNav.vue", () => {
   // factory function to refactor repetitive code
-  const createConfig = (routeName) => ({
+  const createConfig = (routeName, $store = {}) => ({
     global: {
       mocks: {
         $route: {
           name: routeName,
         },
+        $store,
       },
       stubs: {
         FontAwesomeIcon: true,
@@ -20,9 +21,14 @@ describe("SubNav.vue", () => {
   describe("when  user is on job page", () => {
     it("displays the job count", () => {
       const routeName = "JobResults";
-      const wrapper = mount(SubNav, createConfig(routeName));
+      const $store = {
+        getters: {
+          FILTERED_JOBS_BY_ORGANIZATIONS: [{ id: "1" }, { id: "2" }],
+        },
+      };
+      const wrapper = mount(SubNav, createConfig(routeName, $store));
       const jobCount = wrapper.find("[data-test='job-count']");
-      expect(jobCount.exists()).toBe(true);
+      expect(jobCount.text()).toMatch("2 jobs matched");
     });
   });
 

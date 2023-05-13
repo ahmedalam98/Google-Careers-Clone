@@ -14,6 +14,7 @@
               v-model="selectedOrganizations"
               :value="organization"
               class="mr-3"
+              :data-test="organization"
               @change="selectOrganizations"
             />
             <label :for="organization" data-test="organization">{{
