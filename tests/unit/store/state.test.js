@@ -16,4 +16,14 @@ describe("state", () => {
     const startingState = state();
     expect(startingState.selectedOrganizations).toEqual([]);
   });
+
+  it("stores job types that user has chosen to filter jobs by", () => {
+    const startingState = state();
+    expect(startingState.selectedJobTypes).toEqual([]);
+  });
+
+  it("stores degrees that user has chosen to filter jobs by", () => {
+    const startingState = state();
+    expect(startingState.selectedDegrees).toEqual([]);
+  });
 });
