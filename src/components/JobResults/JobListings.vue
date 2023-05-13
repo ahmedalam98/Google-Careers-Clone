@@ -44,7 +44,7 @@
 import JobListing from "@/components/JobResults/JobListing.vue";
 
 import { mapGetters, mapActions } from "vuex";
-import { FETCH_JOBS, FILTERED_JOBS_BY_ORGANIZATIONS } from "@/store";
+import { FETCH_JOBS, FILTERED_JOBS_BY_ORGANIZATIONS } from "@/store/constants";
 
 export default {
   name: "JobListings",
