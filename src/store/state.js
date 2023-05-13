@@ -3,6 +3,8 @@ const state = () => {
     isLoggedIn: false,
     jobs: [],
     selectedOrganizations: [],
+    selectedJobTypes: [],
+    selectedDegrees: [],
   };
 };
 

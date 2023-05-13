@@ -2,6 +2,8 @@ import {
   LOGIN_USER,
   RECEIVE_JOBS,
   ADD_SELECTED_ORGANIZATIONS,
+  ADD_SELECTED_JOB_TYPES,
+  ADD_SELECTED_DEGREES,
 } from "@/store/constants";
 
 const mutations = {
@@ -17,6 +19,12 @@ const mutations = {
   // organizations is the payload that will be manipulated by user from (JobFiltersSideBarOrganizations) component
   [ADD_SELECTED_ORGANIZATIONS](state, organizations) {
     state.selectedOrganizations = organizations;
+  },
+  [ADD_SELECTED_JOB_TYPES](state, jobTypes) {
+    state.selectedJobTypes = jobTypes;
+  },
+  [ADD_SELECTED_DEGREES](state, degrees) {
+    state.selectedDegrees = degrees;
   },
 };
 
