@@ -14,7 +14,7 @@ describe("JobListings", () => {
 
   const createStore = (config = {}) => ({
     getters: {
-      FILTERED_JOBS_BY_ORGANIZATIONS: [],
+      FILTERED_JOBS: [],
     },
     dispatch: jest.fn(),
     ...config,
@@ -48,7 +48,7 @@ describe("JobListings", () => {
     const numberOfJobsInStore = 15;
     const $store = createStore({
       getters: {
-        FILTERED_JOBS_BY_ORGANIZATIONS: Array(numberOfJobsInStore).fill({}),
+        FILTERED_JOBS: Array(numberOfJobsInStore).fill({}),
       },
     });
     const wrapper = shallowMount(JobListings, createConfig($route, $store));
@@ -93,7 +93,7 @@ describe("JobListings", () => {
       const $route = createRoute(queryParams);
       const $store = createStore({
         getters: {
-          FILTERED_JOBS_BY_ORGANIZATIONS: Array(15).fill({}),
+          FILTERED_JOBS: Array(15).fill({}),
         },
       });
       const wrapper = shallowMount(JobListings, createConfig($route, $store));
@@ -107,7 +107,7 @@ describe("JobListings", () => {
         const queryParams = { page: "2" };
         const $route = createRoute(queryParams);
         const $store = createStore({
-          getters: { FILTERED_JOBS_BY_ORGANIZATIONS: Array(15).fill({}) },
+          getters: { FILTERED_JOBS: Array(15).fill({}) },
         });
         const wrapper = shallowMount(JobListings, createConfig($route, $store));
         await flushPromises();
@@ -119,7 +119,7 @@ describe("JobListings", () => {
         const queryParams = { page: "2" };
         const $route = createRoute(queryParams);
         const $store = createStore({
-          getters: { FILTERED_JOBS_BY_ORGANIZATIONS: Array(15).fill({}) },
+          getters: { FILTERED_JOBS: Array(15).fill({}) },
         });
         const wrapper = shallowMount(JobListings, createConfig($route, $store));
         await flushPromises();

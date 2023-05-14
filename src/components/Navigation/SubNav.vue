@@ -11,9 +11,7 @@
           :icon="['fas', 'search']"
         />
         <span>
-          <span class="text-brand-green-1">{{
-            FILTERED_JOBS_BY_ORGANIZATIONS.length
-          }}</span>
+          <span class="text-brand-green-1">{{ FILTERED_JOBS.length }}</span>
           jobs matched
         </span>
       </div>
@@ -23,12 +21,12 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { FILTERED_JOBS_BY_ORGANIZATIONS } from "@/store/constants";
+import { FILTERED_JOBS } from "@/store/constants";
 
 export default {
   name: "SubNav",
   computed: {
-    ...mapGetters([FILTERED_JOBS_BY_ORGANIZATIONS]),
+    ...mapGetters([FILTERED_JOBS]),
 
     onJobResultsPage() {
       return this.$route.name === "JobResults";
