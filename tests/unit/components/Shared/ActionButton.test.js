@@ -16,6 +16,7 @@ describe("ActionButton.vue", () => {
   it("applies one of several styles to button", () => {
     const wrapper = mount(ActionButton, {
       props: {
+        text: "msg",
         type: "primary",
       },
     });

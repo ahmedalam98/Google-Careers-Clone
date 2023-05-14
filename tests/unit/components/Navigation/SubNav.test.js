@@ -1,17 +1,17 @@
 import { describe, it, expect } from "@jest/globals";
 import { mount } from "@vue/test-utils";
 import SubNav from "@/components/Navigation/SubNav.vue";
+import jest from "jest";
+
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+jest.mock("vue-router");
+jest.mock("vuex");
 
 describe("SubNav.vue", () => {
   // factory function to refactor repetitive code
-  const createConfig = (routeName, $store = {}) => ({
+  const createConfig = () => ({
     global: {
-      mocks: {
-        $route: {
-          name: routeName,
-        },
-        $store,
-      },
       stubs: {
         FontAwesomeIcon: true,
       },
@@ -20,13 +20,14 @@ describe("SubNav.vue", () => {
 
   describe("when  user is on job page", () => {
     it("displays the job count", () => {
-      const routeName = "JobResults";
-      const $store = {
+      useRoute.mockReturnValue({ name: "JobResults" });
+
+      useStore.mockReturnValue({
         getters: {
           FILTERED_JOBS: [{ id: "1" }, { id: "2" }],
         },
-      };
-      const wrapper = mount(SubNav, createConfig(routeName, $store));
+      });
+      const wrapper = mount(SubNav, createConfig());
       const jobCount = wrapper.find("[data-test='job-count']");
       expect(jobCount.text()).toMatch("2 jobs matched");
     });
@@ -34,8 +35,13 @@ describe("SubNav.vue", () => {
 
   describe("when  user is not on job page", () => {
     it("doesn't display the job count", () => {
-      const routeName = "Home";
-      const wrapper = mount(SubNav, createConfig(routeName));
+      useRoute.mockReturnValue({ name: "Home" });
+      useStore.mockReturnValue({
+        getters: {
+          FILTERED_JOBS: [],
+        },
+      });
+      const wrapper = mount(SubNav, createConfig());
       const jobCount = wrapper.find("[data-test='job-count']");
       expect(jobCount.exists()).toBe(false);
     });

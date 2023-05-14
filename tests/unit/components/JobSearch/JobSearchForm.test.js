@@ -7,13 +7,12 @@ describe("JobSearchForm.vue", () => {
   describe("when user submits the form", () => {
     it("directs user to job results page with user's search parameters", async () => {
       const push = jest.fn();
-      const $router = { push };
+      useRouter.mockReturnValue({
+        push,
+      });
 
       const wrapper = mount(JobSearchForm, {
         global: {
-          mocks: {
-            $router,
-          },
           stubs: {
             FontAwesomeIcon: true,
           },

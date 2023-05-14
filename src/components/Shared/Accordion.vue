@@ -19,28 +19,33 @@
 </template>
 
 <script>
+import { ref, computed } from "vue";
 export default {
   name: "Accordion",
+
   props: {
     header: {
       type: String,
       required: true,
     },
   },
-  data() {
-    return {
-      isOpen: false,
+
+  setup() {
+    const isOpen = ref(false);
+    const toggleAccordion = () => {
+      isOpen.value = !isOpen.value;
     };
-  },
-  computed: {
-    caretIcon() {
-      return this.isOpen ? ["fas", "angle-up"] : ["fas", "angle-down"];
-    },
-  },
-  methods: {
-    toggleAccordion() {
-      this.isOpen = !this.isOpen;
-    },
+    const caretIcon = computed(() => {
+      return isOpen.value ? ["fas", "angle-up"] : ["fas", "angle-down"];
+    });
+
+    // the following return statement is the main difference between the setup() and the data() method.
+    // As to use any of the above variables in the template we need to return them from the setup() method
+    return {
+      isOpen,
+      toggleAccordion,
+      caretIcon,
+    };
   },
 };
 </script>

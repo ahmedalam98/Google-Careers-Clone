@@ -20,17 +20,28 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { FILTERED_JOBS } from "@/store/constants";
+/***** Composables *****/
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 
 export default {
   name: "SubNav",
-  computed: {
-    ...mapGetters([FILTERED_JOBS]),
+  setup() {
+    const route = useRoute();
+    const onJobResultsPage = () => {
+      return route.name === "JobResults";
+    };
 
-    onJobResultsPage() {
-      return this.$route.name === "JobResults";
-    },
+    const store = useStore();
+    const FILTERED_JOBS = computed(() => {
+      return store.getters.FILTERED_JOBS;
+    });
+
+    return {
+      onJobResultsPage,
+      FILTERED_JOBS,
+    };
   },
 };
 </script>

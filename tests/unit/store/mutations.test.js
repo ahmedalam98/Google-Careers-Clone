@@ -13,7 +13,7 @@ describe("mutations", () => {
   describe("RECEIVE_JOBS", () => {
     it("receives jobs from API", () => {
       const state = { jobs: [] };
-      mutations.RECIEVE_JOBS(state, ["Job 1", "Job 2"]);
+      mutations.RECEIVE_JOBS(state, ["Job 1", "Job 2"]);
       expect(state).toEqual({ jobs: ["Job 1", "Job 2"] });
     });
   });

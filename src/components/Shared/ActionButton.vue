@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { computed, toRefs } from "vue";
+
 export default {
   name: "ActionButton",
   props: {
@@ -23,14 +25,19 @@ export default {
       },
     },
   },
-  // computed ---> object that contains the primary class if the primary data property is true, and no class if it is false.
-  computed: {
-    buttonClass() {
+
+  setup(props) {
+    const { type } = toRefs(props);
+
+    const buttonClass = computed(() => {
       return {
-        // dynamic object property to add whatever class matched below in <style/> to the button element
-        [this.type]: true,
+        [type.value]: true,
       };
-    },
+    });
+
+    return {
+      buttonClass,
+    };
   },
 };
 </script>
