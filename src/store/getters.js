@@ -2,9 +2,6 @@ import {
   UNIQUE_ORGANIZATIONS,
   UNIQUE_JOB_TYPES,
   UNIQUE_DEGREES,
-  FILTERED_JOBS_BY_ORGANIZATIONS,
-  FILTERED_JOBS_BY_JOB_TYPES,
-  FILTERED_JOBS_BY_DEGREES,
   FILTERED_JOBS,
   INCLUDE_JOB_BY_ORGANIZATION,
   INCLUDE_JOB_BY_JOB_TYPE,
@@ -20,32 +17,11 @@ const getters = {
     return uniqueOrganizations;
   },
 
-  // FILTERED_JOBS_BY_ORGANIZATIONS is returning the jobs that match the selected organizations by user
-  [FILTERED_JOBS_BY_ORGANIZATIONS](state) {
-    if (state.selectedOrganizations.length === 0) {
-      return state.jobs;
-    } else {
-      return state.jobs.filter((job) =>
-        state.selectedOrganizations.includes(job.organization)
-      );
-    }
-  },
-
   //********** JOB TYPES **********/
   [UNIQUE_JOB_TYPES](state) {
     const uniqueJobTypes = new Set();
     state.jobs.forEach((job) => uniqueJobTypes.add(job.jobType));
     return uniqueJobTypes;
-  },
-
-  [FILTERED_JOBS_BY_JOB_TYPES](state) {
-    if (state.selectedJobTypes.length === 0) {
-      return state.jobs;
-    } else {
-      return state.jobs.filter((job) =>
-        state.selectedJobTypes.includes(job.jobType)
-      );
-    }
   },
 
   //********** DEGREES **********/
@@ -55,15 +31,6 @@ const getters = {
     return uniqueDegrees;
   },
 
-  [FILTERED_JOBS_BY_DEGREES](state) {
-    if (state.selectedDegrees.length === 0) {
-      return state.jobs;
-    } else {
-      return state.jobs.filter((job) =>
-        state.selectedDegrees.includes(job.degree)
-      );
-    }
-  },
   //////////////////////////////////////////////////////////////////////
 
   // INCLUDE_JOB_BY_ORGANIZATION is ***Getter with ARGUMENT*** returning true if the job organization is included in the selected organizations

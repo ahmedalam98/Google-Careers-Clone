@@ -1,5 +1,6 @@
 import { getters } from "@/store/index.js";
 import { describe, it, expect } from "@jest/globals";
+import jest from "jest";
 
 describe("getters", () => {
   describe("UNIQUE_ORGANIZATIONS", () => {
@@ -13,43 +14,6 @@ describe("getters", () => {
       };
       const result = getters.UNIQUE_ORGANIZATIONS(state);
       expect(result).toEqual(new Set(["Google", "Amazon"]));
-    });
-  });
-
-  describe("FILTERED_JOBS_BY_ORGANIZATIONS", () => {
-    it("identifies jobs that match selected organizations", () => {
-      const state = {
-        jobs: [
-          { organization: "Google" },
-          { organization: "Amazon" },
-          { organization: "Microsoft" },
-        ],
-        selectedOrganizations: ["Google", "Amazon"],
-      };
-      const filteredJobs = getters.FILTERED_JOBS_BY_ORGANIZATIONS(state);
-      expect(filteredJobs).toEqual([
-        { organization: "Google" },
-        { organization: "Amazon" },
-      ]);
-    });
-
-    describe("when user has not selected any organizations", () => {
-      it("returns all jobs", async () => {
-        const state = {
-          jobs: [
-            { organization: "Google" },
-            { organization: "Amazon" },
-            { organization: "Microsoft" },
-          ],
-          selectedOrganizations: [],
-        };
-        const filteredJobs = getters.FILTERED_JOBS_BY_ORGANIZATIONS(state);
-        expect(filteredJobs).toEqual([
-          { organization: "Google" },
-          { organization: "Amazon" },
-          { organization: "Microsoft" },
-        ]);
-      });
     });
   });
 
@@ -67,43 +31,6 @@ describe("getters", () => {
     });
   });
 
-  describe("FILTERED_JOBS_BY_JOB_TYPES", () => {
-    it("identifies jobs that match selected job types", () => {
-      const state = {
-        jobs: [
-          { jobTypes: "Full-time" },
-          { jobTypes: "Temporary" },
-          { jobTypes: "Part-time" },
-        ],
-        selectedJobTypes: ["Full-time", "Part-time"],
-      };
-      const filteredJobs = getters.FILTERED_JOBS_BY_JOB_TYPES(state);
-      expect(filteredJobs).toEqual([
-        { jobTypes: "Full-time" },
-        { jobTypes: "Part-time" },
-      ]);
-    });
-
-    describe("when user has not selected any job type", () => {
-      it("returns all jobs", async () => {
-        const state = {
-          jobs: [
-            { jobTypes: "Full-time" },
-            { jobTypes: "Temporary" },
-            { jobTypes: "Part-time" },
-          ],
-          selectedJobTypes: [],
-        };
-        const filteredJobs = getters.FILTERED_JOBS_BY_JOB_TYPES(state);
-        expect(filteredJobs).toEqual([
-          { jobTypes: "Full-time" },
-          { jobTypes: "Temporary" },
-          { jobTypes: "Part-time" },
-        ]);
-      });
-    });
-  });
-
   describe("UNIQUE_DEGREES", () => {
     it("finds unique degrees from list of jobs", () => {
       const state = {
@@ -118,40 +45,31 @@ describe("getters", () => {
     });
   });
 
-  describe("FILTERED_JOBS_BY_DEGREES", () => {
-    it("identifies jobs that match selected degrees", () => {
-      const state = {
-        jobs: [
-          { degree: "Master's" },
-          { degree: "Bachelor's" },
-          { degree: "Ph.D." },
-        ],
-        selectedDegrees: ["Master's", "Bachelor's"],
+  describe("FILTERED_JOBS", () => {
+    it("filters jobs by organization, job type and degree", () => {
+      const INCLUDE_JOB_BY_ORGANIZATION = jest.fn().mockResolvedValue(true);
+      const INCLUDE_JOB_BY_JOB_TYPE = jest.fn().mockResolvedValue(true);
+      const INCLUDE_JOB_BY_DEGREE = jest.fn().mockResolvedValue(true);
+      const mockGetters = {
+        INCLUDE_JOB_BY_ORGANIZATION,
+        INCLUDE_JOB_BY_JOB_TYPE,
+        INCLUDE_JOB_BY_DEGREE,
       };
-      const filteredJobs = getters.FILTERED_JOBS_BY_DEGREES(state);
-      expect(filteredJobs).toEqual([
-        { degree: "Master's" },
-        { degree: "Bachelor's" },
-      ]);
-    });
 
-    describe("when user has not selected any degree", () => {
-      it("returns all jobs", async () => {
-        const state = {
-          jobs: [
-            { degree: "Master's" },
-            { degree: "Bachelor's" },
-            { degree: "Ph.D." },
-          ],
-          selectedDegrees: [],
-        };
-        const filteredJobs = getters.FILTERED_JOBS_BY_DEGREES(state);
-        expect(filteredJobs).toEqual([
-          { degree: "Master's" },
-          { degree: "Bachelor's" },
-          { degree: "Ph.D." },
-        ]);
-      });
+      const job = {
+        organization: "Google",
+        jobType: "Full-time",
+        degree: "Master's",
+      };
+      const state = {
+        jobs: [job],
+      };
+
+      const result = getters.FILTERED_JOBS(state, mockGetters);
+      expect(result).toEqual([job]);
+      expect(INCLUDE_JOB_BY_ORGANIZATION).toHaveBeenCalledWith(job);
+      expect(INCLUDE_JOB_BY_JOB_TYPE).toHaveBeenCalledWith(job);
+      expect(INCLUDE_JOB_BY_DEGREE).toHaveBeenCalledWith(job);
     });
   });
 });
