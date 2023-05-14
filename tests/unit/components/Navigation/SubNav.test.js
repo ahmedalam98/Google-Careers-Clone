@@ -3,10 +3,11 @@ import { mount } from "@vue/test-utils";
 import SubNav from "@/components/Navigation/SubNav.vue";
 import jest from "jest";
 
-import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-jest.mock("vue-router");
 jest.mock("vuex");
+
+import useConfirmRoute from "@/composables/useConfirmRoute";
+jest.mock("@/composables/useConfirmRoute");
 
 describe("SubNav.vue", () => {
   // factory function to refactor repetitive code
@@ -20,7 +21,7 @@ describe("SubNav.vue", () => {
 
   describe("when  user is on job page", () => {
     it("displays the job count", () => {
-      useRoute.mockReturnValue({ name: "JobResults" });
+      useConfirmRoute.mockReturnValue(true);
 
       useStore.mockReturnValue({
         getters: {
@@ -35,7 +36,7 @@ describe("SubNav.vue", () => {
 
   describe("when  user is not on job page", () => {
     it("doesn't display the job count", () => {
-      useRoute.mockReturnValue({ name: "Home" });
+      useConfirmRoute.mockReturnValue(false);
       useStore.mockReturnValue({
         getters: {
           FILTERED_JOBS: [],
