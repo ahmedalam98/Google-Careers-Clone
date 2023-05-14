@@ -52,6 +52,7 @@ export default {
     ...mapMutations([ADD_SELECTED_ORGANIZATIONS]),
     selectOrganizations() {
       this.ADD_SELECTED_ORGANIZATIONS(this.selectedOrganizations);
+      this.$router.push({ query: { page: 1 } });
     },
   },
 };

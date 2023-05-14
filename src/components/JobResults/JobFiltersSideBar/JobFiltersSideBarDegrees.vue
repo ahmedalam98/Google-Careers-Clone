@@ -43,6 +43,7 @@ export default {
     ...mapMutations([ADD_SELECTED_DEGREES]),
     selectDegrees() {
       this.ADD_SELECTED_DEGREES(this.selectedDegrees);
+      this.$router.push({ query: { page: 1 } });
     },
   },
 };
