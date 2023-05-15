@@ -3,7 +3,7 @@
     <div class="mt-5">
       <fieldset>
         <ul class="flex flex-row flex-wrap">
-          <li v-for="degree in UNIQUE_DEGREES" :key="degree" class="w-1/2 h-8">
+          <li v-for="degree in uniqueDegrees" :key="degree" class="w-1/2 h-8">
             <input
               :id="degree"
               type="checkbox"
@@ -22,8 +22,11 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
-import { ADD_SELECTED_DEGREES, UNIQUE_DEGREES } from "@/store/constants";
+import { ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { useUniqueDegrees } from "@/store/composables";
+import { ADD_SELECTED_DEGREES } from "@/store/constants";
 
 import Accordion from "@/components/Shared/Accordion.vue";
 export default {
@@ -31,20 +34,23 @@ export default {
   components: {
     Accordion,
   },
-  data() {
-    return {
-      selectedDegrees: [],
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+
+    const selectedDegrees = ref([]);
+    const uniqueDegrees = useUniqueDegrees();
+
+    const selectDegrees = () => {
+      store.commit(ADD_SELECTED_DEGREES, selectedDegrees.value);
+      router.push({ name: "JobResults" });
     };
-  },
-  computed: {
-    ...mapGetters([UNIQUE_DEGREES]),
-  },
-  methods: {
-    ...mapMutations([ADD_SELECTED_DEGREES]),
-    selectDegrees() {
-      this.ADD_SELECTED_DEGREES(this.selectedDegrees);
-      this.$router.push({ query: { page: 1 } });
-    },
+
+    return {
+      selectedDegrees,
+      uniqueDegrees,
+      selectDegrees,
+    };
   },
 };
 </script>

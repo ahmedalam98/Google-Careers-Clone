@@ -4,7 +4,7 @@
       <fieldset>
         <ul class="flex flex-row flex-wrap">
           <li
-            v-for="organization in UNIQUE_ORGANIZATIONS"
+            v-for="organization in uniqueOrganizations"
             :key="organization"
             class="w-1/2 h-8"
           >
@@ -28,11 +28,11 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
-import {
-  ADD_SELECTED_ORGANIZATIONS,
-  UNIQUE_ORGANIZATIONS,
-} from "@/store/constants";
+import { ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import { useUniqueOrganizations } from "@/store/composables";
+import { ADD_SELECTED_ORGANIZATIONS } from "@/store/constants";
 
 import Accordion from "@/components/Shared/Accordion.vue";
 export default {
@@ -40,20 +40,22 @@ export default {
   components: {
     Accordion,
   },
-  data() {
-    return {
-      selectedOrganizations: [],
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+
+    const selectedOrganizations = ref([]);
+    const uniqueOrganizations = useUniqueOrganizations();
+
+    const selectOrganizations = () => {
+      store.commit(ADD_SELECTED_ORGANIZATIONS, selectedOrganizations.value);
+      router.push({ name: "JobResults" });
     };
-  },
-  computed: {
-    ...mapGetters([UNIQUE_ORGANIZATIONS]),
-  },
-  methods: {
-    ...mapMutations([ADD_SELECTED_ORGANIZATIONS]),
-    selectOrganizations() {
-      this.ADD_SELECTED_ORGANIZATIONS(this.selectedOrganizations);
-      this.$router.push({ query: { page: 1 } });
-    },
+    return {
+      selectedOrganizations,
+      uniqueOrganizations,
+      selectOrganizations,
+    };
   },
 };
 </script>
