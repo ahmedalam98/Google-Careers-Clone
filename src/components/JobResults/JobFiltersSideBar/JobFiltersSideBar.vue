@@ -9,26 +9,62 @@
           <ActionButton text="Clear Filters" type="secondary" />
         </div>
       </div>
-      <JobFiltersSideBarDegrees />
-      <JobFiltersSideBarJobTypes />
-      <JobFiltersSideBarOrganizations />
+      <!-- header is a static property.So, using a binding for header is unnecessary because it doesn't need to be reactive -->
+      <!-- uniqueValues and mutation are dynamic and dependent on the component's props and state-->
+      <JobFitlersSideBarCheckboxGroup
+        header="Degrees"
+        :uniqueValues="uniqueDegrees"
+        :mutation="ADD_SELECTED_DEGREES"
+      />
+      <JobFitlersSideBarCheckboxGroup
+        header="Job Types"
+        :uniqueValues="uniqueJobTypes"
+        :mutation="ADD_SELECTED_JOB_TYPES"
+      />
+      <JobFitlersSideBarCheckboxGroup
+        header="Organizations"
+        :uniqueValues="uniqueOrganizations"
+        :mutation="ADD_SELECTED_ORGANIZATIONS"
+      />
     </section>
   </div>
 </template>
 
 <script>
 import ActionButton from "@/components/Shared/ActionButton.vue";
-import JobFiltersSideBarOrganizations from "./JobFiltersSideBarOrganizations.vue";
-import JobFiltersSideBarJobTypes from "./JobFiltersSideBarJobTypes.vue";
-import JobFiltersSideBarDegrees from "./JobFiltersSideBarDegrees.vue";
+import JobFitlersSideBarCheckboxGroup from "./JobFiltersSideBarCheckboxGroup.vue";
+
+/**** COMPOSABLES ****/
+import { useUniqueOrganizations } from "@/store/composables";
+import { useUniqueJobTypes } from "@/store/composables";
+import { useUniqueDegrees } from "@/store/composables";
+
+/**** MUTATIONS ****/
+import {
+  ADD_SELECTED_ORGANIZATIONS,
+  ADD_SELECTED_JOB_TYPES,
+  ADD_SELECTED_DEGREES,
+} from "@/store/constants";
 
 export default {
   name: "JobFiltersSideBar",
   components: {
     ActionButton,
-    JobFiltersSideBarOrganizations,
-    JobFiltersSideBarJobTypes,
-    JobFiltersSideBarDegrees,
+    JobFitlersSideBarCheckboxGroup,
+  },
+  setup() {
+    const uniqueOrganizations = useUniqueOrganizations();
+    const uniqueJobTypes = useUniqueJobTypes();
+    const uniqueDegrees = useUniqueDegrees();
+
+    return {
+      uniqueOrganizations,
+      uniqueJobTypes,
+      uniqueDegrees,
+      ADD_SELECTED_ORGANIZATIONS,
+      ADD_SELECTED_JOB_TYPES,
+      ADD_SELECTED_DEGREES,
+    };
   },
 };
 </script>
