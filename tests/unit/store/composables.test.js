@@ -8,6 +8,7 @@ import {
   useUniqueOrganizations,
   useUniqueJobTypes,
   useUniqueDegrees,
+  useFetchJobsDispatch,
 } from "@/store/composables";
 
 describe("composables", () => {
@@ -60,6 +61,18 @@ describe("composables", () => {
 
       const result = useUniqueDegrees();
       expect(result.value).toEqual(new Set(["Bachelors"]));
+    });
+  });
+
+  describe("useFetchJobsDispatch", () => {
+    it("sends call to fetch jobs from API", () => {
+      const dispatch = jest.fn();
+      useStore.mockReturnValue({
+        dispatch,
+      });
+
+      useFetchJobsDispatch();
+      expect(dispatch).toHaveBeenCalledWith("FETCH_JOBS");
     });
   });
 });
