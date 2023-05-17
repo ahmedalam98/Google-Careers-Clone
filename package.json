@@ -7,8 +7,9 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit --coverage",
     "lint": "vue-cli-service lint",
-    "backend": "json-server --watch db.json --port 3000",
-    "test:watch": "vue-cli-service test:unit --watch"
+    "backend": "json-server --watch db.json",
+    "test:watch": "vue-cli-service test:unit --watch",
+    "start": "concurrently \"npm run serve\" \"npm run backend\""
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -16,6 +17,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "autoprefixer": "^10",
     "axios": "^1.4.0",
+    "concurrently": "^8.0.1",
     "core-js": "^3.8.3",
     "json-server": "^0.17.3",
     "postcss": "^8",

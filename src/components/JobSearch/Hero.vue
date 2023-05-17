@@ -9,8 +9,9 @@
         </div>
         <div class="col-start-7 col-span-5 self-center justify-self-center">
           <img
-            class="w-80 h-80 object-contain"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/2367px-Vue.js_Logo_2.svg.png"
+            class="ml-10"
+            src="https://careers.google.com/jobs/dist/img/assets/hero-04_1x.5377e160fa426c8b388a861f23cc185b.png"
+            alt="hero image"
           />
         </div>
         <div class="col-start-12 col-span1"></div>
