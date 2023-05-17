@@ -6,24 +6,27 @@ import {
   ADD_SELECTED_DEGREES,
 } from "@/store/constants";
 
+import { GlobalState } from "@/store/types";
+import { Job } from "@/api/types";
+
 const mutations = {
   // array destructuring to avoid typos.
-  [LOGIN_USER](state) {
+  [LOGIN_USER](state: GlobalState) {
     // (other than React) in Vue nothing wrong with updating the state directly
     state.isLoggedIn = true;
   },
   // jobs is the payload here (the data we want to update the state with)
-  [RECEIVE_JOBS](state, jobs) {
+  [RECEIVE_JOBS](state: GlobalState, jobs: Job[]) {
     state.jobs = jobs;
   },
   // organizations is the payload that will be manipulated by user from (JobFiltersSideBarOrganizations) component
-  [ADD_SELECTED_ORGANIZATIONS](state, organizations) {
+  [ADD_SELECTED_ORGANIZATIONS](state: GlobalState, organizations: string[]) {
     state.selectedOrganizations = organizations;
   },
-  [ADD_SELECTED_JOB_TYPES](state, jobTypes) {
+  [ADD_SELECTED_JOB_TYPES](state: GlobalState, jobTypes: string[]) {
     state.selectedJobTypes = jobTypes;
   },
-  [ADD_SELECTED_DEGREES](state, degrees) {
+  [ADD_SELECTED_DEGREES](state: GlobalState, degrees: string[]) {
     state.selectedDegrees = degrees;
   },
 };
