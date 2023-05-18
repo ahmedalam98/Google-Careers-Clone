@@ -1,7 +1,6 @@
 import { describe, it, expect } from "@jest/globals";
 import { shallowMount, RouterLinkStub } from "@vue/test-utils";
 import MainNav from "@/components/Navigation/MainNav.vue";
-import jest from "jest";
 
 describe("MainNav.vue", () => {
   // Refactoring Test Suite Method 1) :

@@ -2,7 +2,6 @@ import HeadLine from "@/components/JobSearch/HeadLine.vue";
 import { mount } from "@vue/test-utils";
 import { nextTick } from "vue";
 import { describe, it, expect, beforeEach, afterEach } from "@jest/globals";
-import jest from "jest";
 
 describe("HeadLine", () => {
   beforeEach(() => {

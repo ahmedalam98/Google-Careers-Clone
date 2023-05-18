@@ -1,7 +1,7 @@
 import { describe, it, expect } from "@jest/globals";
 import { mount } from "@vue/test-utils";
 import SubNav from "@/components/Navigation/SubNav.vue";
-import jest from "jest";
+
 jest.mock("vuex");
 
 import useConfirmRoute from "@/composables/useConfirmRoute";

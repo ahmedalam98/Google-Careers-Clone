@@ -1,6 +1,5 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "@jest/globals";
-import jest from "jest";
 
 import { useStore } from "vuex";
 jest.mock("vuex");

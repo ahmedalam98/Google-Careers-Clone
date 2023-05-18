@@ -1,7 +1,6 @@
 import { mount } from "@vue/test-utils";
 import JobSearchForm from "@/components/JobSearch/JobSearchForm.vue";
 import { describe, expect, it } from "@jest/globals";
-import jest from "jest";
 
 describe("JobSearchForm.vue", () => {
   describe("when user submits the form", () => {

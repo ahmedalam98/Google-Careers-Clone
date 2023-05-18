@@ -1,7 +1,7 @@
 import { mount, flushPromises } from "@vue/test-utils";
 import { describe, expect, it } from "@jest/globals";
 import axios from "axios";
-import jest from "jest";
+
 jest.mock("axios");
 
 import Spotlight from "@/components/JobSearch/Spotlight.vue";

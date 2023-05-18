@@ -1,8 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { useStore } from "vuex";
-import jest from "jest";
-import { Mock } from "jest";
-jest.mock("vuex");
+import jest from "jest-mock";
 
 import {
   useFilteredJobs,
@@ -56,7 +54,7 @@ describe("composables", () => {
 
   describe("useUniqueDegrees", () => {
     it("retrieves unique degrees from store", () => {
-      useStore.mockReturnValue({
+      useStoreMock.mockReturnValue({
         getters: {
           UNIQUE_DEGREES: new Set(["Bachelors"]),
         },
@@ -70,7 +68,7 @@ describe("composables", () => {
   describe("useFetchJobsDispatch", () => {
     it("sends call to fetch jobs from API", () => {
       const dispatch = jest.fn();
-      useStore.mockReturnValue({
+      useStoreMock.mockReturnValue({
         dispatch,
       });
 

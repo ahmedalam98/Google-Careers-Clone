@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { useRoute } from "vue-router";
-import jest from "jest";
+
 jest.mock("vue-router");
 
 import useCurrentPage from "@/composables/useCurrentPage";

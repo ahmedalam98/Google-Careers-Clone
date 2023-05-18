@@ -2,7 +2,7 @@ import useConfirmRoute from "@/composables/useConfirmRoute";
 import { describe, expect, it } from "@jest/globals";
 
 import { useRoute } from "vue-router";
-import jest from "jest";
+
 jest.mock("vue-router");
 
 describe("useConfirmRoute.js", () => {

@@ -1,7 +1,6 @@
 import { ref } from "vue";
 import { flushPromises, shallowMount, RouterLinkStub } from "@vue/test-utils";
 import { describe, it, expect } from "@jest/globals";
-import jest from "jest";
 
 import JobListings from "@/components/JobResults/JobListings.vue";
 

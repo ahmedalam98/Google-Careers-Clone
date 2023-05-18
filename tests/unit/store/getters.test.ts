@@ -1,6 +1,6 @@
 import getters from "@/store/getters";
 import { describe, it, expect } from "@jest/globals";
-import jest from "jest";
+
 import { createJob, createState } from "./utils";
 
 describe("getters", () => {
@@ -45,10 +45,11 @@ describe("getters", () => {
 
   describe("FILTERED_JOBS", () => {
     it("filters jobs by organization, job type and degree", () => {
-      const INCLUDE_JOB_BY_ORGANIZATION = jest.fn().mockResolvedValue(true);
-      const INCLUDE_JOB_BY_JOB_TYPE = jest.fn().mockResolvedValue(true);
-      const INCLUDE_JOB_BY_DEGREE = jest.fn().mockResolvedValue(true);
-      const mockGetters = {
+      const INCLUDE_JOB_BY_ORGANIZATION = jest.fn().mockReturnValue(true);
+      const INCLUDE_JOB_BY_JOB_TYPE = jest.fn().mockReturnValue(true);
+      const INCLUDE_JOB_BY_DEGREE = jest.fn().mockReturnValue(true);
+
+      const mockGetters: any = {
         INCLUDE_JOB_BY_ORGANIZATION,
         INCLUDE_JOB_BY_JOB_TYPE,
         INCLUDE_JOB_BY_DEGREE,

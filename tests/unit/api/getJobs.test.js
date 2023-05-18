@@ -1,5 +1,5 @@
 import axios from "axios";
-import jest from "jest";
+
 import { describe, it, expect, beforeEach } from "@jest/globals";
 
 import getJobs from "@/api/getJobs";
