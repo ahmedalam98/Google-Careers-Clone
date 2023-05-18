@@ -9,24 +9,30 @@ import {
   FETCH_JOBS,
 } from "@/store/constants";
 
+import { Job } from "@/api/types";
+
+/********** GETTERS**********/
+
+// <Job[]> : is a type ensures the return value is an array of Job objects
 export const useFilteredJobs = () => {
   const store = useStore();
-  return computed(() => store.getters[FILTERED_JOBS]);
+  return computed<Job[]>(() => store.getters[FILTERED_JOBS]);
 };
 
+// <Set<string>> : is a type ensures the return value is a Set of strings
 export const useUniqueOrganizations = () => {
   const store = useStore();
-  return computed(() => store.getters[UNIQUE_ORGANIZATIONS]);
+  return computed<Set<string>>(() => store.getters[UNIQUE_ORGANIZATIONS]);
 };
 
 export const useUniqueJobTypes = () => {
   const store = useStore();
-  return computed(() => store.getters[UNIQUE_JOB_TYPES]);
+  return computed<Set<string>>(() => store.getters[UNIQUE_JOB_TYPES]);
 };
 
 export const useUniqueDegrees = () => {
   const store = useStore();
-  return computed(() => store.getters[UNIQUE_DEGREES]);
+  return computed<Set<string>>(() => store.getters[UNIQUE_DEGREES]);
 };
 
 /********** ACTIONS **********/

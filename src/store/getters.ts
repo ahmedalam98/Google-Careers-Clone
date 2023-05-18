@@ -8,25 +8,34 @@ import {
   INCLUDE_JOB_BY_DEGREE,
 } from "@/store/constants";
 
+import { GlobalState } from "@/store/types";
+import { Job } from "@/api/types";
+
+interface IncludeJobGetters {
+  INCLUDE_JOB_BY_ORGANIZATION: (job: Job) => boolean;
+  INCLUDE_JOB_BY_JOB_TYPE: (job: Job) => boolean;
+  INCLUDE_JOB_BY_DEGREE: (job: Job) => boolean;
+}
+
 const getters = {
   //********** ORGANIZATIONS **********/
   // UNIQUE_ORGANIZATIONS is returning the jobs organizations from db.json without duplicates
-  [UNIQUE_ORGANIZATIONS](state) {
-    const uniqueOrganizations = new Set();
+  [UNIQUE_ORGANIZATIONS](state: GlobalState) {
+    const uniqueOrganizations = new Set<string>();
     state.jobs.forEach((job) => uniqueOrganizations.add(job.organization));
     return uniqueOrganizations;
   },
 
   //********** JOB TYPES **********/
-  [UNIQUE_JOB_TYPES](state) {
-    const uniqueJobTypes = new Set();
+  [UNIQUE_JOB_TYPES](state: GlobalState) {
+    const uniqueJobTypes = new Set<string>();
     state.jobs.forEach((job) => uniqueJobTypes.add(job.jobType));
     return uniqueJobTypes;
   },
 
   //********** DEGREES **********/
-  [UNIQUE_DEGREES](state) {
-    const uniqueDegrees = new Set();
+  [UNIQUE_DEGREES](state: GlobalState) {
+    const uniqueDegrees = new Set<string>();
     state.jobs.forEach((job) => uniqueDegrees.add(job.degree));
     return uniqueDegrees;
   },
@@ -34,19 +43,19 @@ const getters = {
   //////////////////////////////////////////////////////////////////////
 
   // INCLUDE_JOB_BY_ORGANIZATION is ***Getter with ARGUMENT*** returning true if the job organization is included in the selected organizations
-  [INCLUDE_JOB_BY_ORGANIZATION]: (state) => (job) => {
+  [INCLUDE_JOB_BY_ORGANIZATION]: (state: GlobalState) => (job: Job) => {
     if (state.selectedOrganizations.length === 0) {
       return true;
     }
     return state.selectedOrganizations.includes(job.organization);
   },
-  [INCLUDE_JOB_BY_JOB_TYPE]: (state) => (job) => {
+  [INCLUDE_JOB_BY_JOB_TYPE]: (state: GlobalState) => (job: Job) => {
     if (state.selectedJobTypes.length === 0) {
       return true;
     }
     return state.selectedJobTypes.includes(job.jobType);
   },
-  [INCLUDE_JOB_BY_DEGREE]: (state) => (job) => {
+  [INCLUDE_JOB_BY_DEGREE]: (state: GlobalState) => (job: Job) => {
     if (state.selectedDegrees.length === 0) {
       return true;
     }
@@ -54,7 +63,7 @@ const getters = {
   },
 
   // FILTERED_JOBS is returning the jobs that match the selected organizations, job types and degrees by user
-  [FILTERED_JOBS](state, getters) {
+  [FILTERED_JOBS](state: GlobalState, getters: IncludeJobGetters) {
     return state.jobs
       .filter((job) => getters.INCLUDE_JOB_BY_ORGANIZATION(job))
       .filter((job) => getters.INCLUDE_JOB_BY_JOB_TYPE(job))
