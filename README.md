@@ -1,10 +1,11 @@
 <div id="top"></div>
 
 ![Vue](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D)
+![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
-![JSON-Server](https://img.shields.io/badge/json_server-5E5C5C?style=for-the-badge&logo=json&logoColor=white)
 ![Tailwind.CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Font Awesome](https://img.shields.io/badge/Font_Awesome-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white)
+![JSON-Server](https://img.shields.io/badge/json_server-5E5C5C?style=for-the-badge&logo=json&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
 <!-- PROJECT LOGO -->
@@ -58,6 +59,7 @@ Google Careers site clone using Vue.js
 - Vuex
 - Vue Router
 - Vue Test Utils / Jest
+- Typescript
 - Tailwind.CSS
 - Json-server
 
