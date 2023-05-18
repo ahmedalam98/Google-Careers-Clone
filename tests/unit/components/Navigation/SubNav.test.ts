@@ -10,6 +10,9 @@ jest.mock("@/composables/useConfirmRoute");
 import { useFilteredJobs } from "@/store/composables";
 jest.mock("@/store/composables");
 
+const useFilteredJobsMock = useFilteredJobs as jest.Mock;
+const useConfirmRouteMock = useConfirmRoute as jest.Mock;
+
 describe("SubNav.vue", () => {
   // factory function to refactor repetitive code
   const createConfig = () => ({
@@ -22,8 +25,8 @@ describe("SubNav.vue", () => {
 
   describe("when  user is on job page", () => {
     it("displays the job count", () => {
-      useConfirmRoute.mockReturnValue(true);
-      useFilteredJobs.mockReturnValue([{ id: "1" }, { id: "2" }]);
+      useConfirmRouteMock.mockReturnValue(true);
+      useFilteredJobsMock.mockReturnValue([{ id: "1" }, { id: "2" }]);
 
       const wrapper = mount(SubNav, createConfig());
       const jobCount = wrapper.find("[data-test='job-count']");
@@ -33,8 +36,8 @@ describe("SubNav.vue", () => {
 
   describe("when  user is not on job page", () => {
     it("doesn't display the job count", () => {
-      useConfirmRoute.mockReturnValue(false);
-      useFilteredJobs.mockReturnValue([]);
+      useConfirmRouteMock.mockReturnValue(false);
+      useFilteredJobsMock.mockReturnValue([]);
 
       const wrapper = mount(SubNav, createConfig());
       const jobCount = wrapper.find("[data-test='job-count']");

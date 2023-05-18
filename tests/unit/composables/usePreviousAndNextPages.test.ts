@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { usePreviousAndNextPages } from "@/composables/usePreviousAndNextPages";
+import usePreviousAndNextPages from "@/composables/usePreviousAndNextPages";
 
 describe("usePreviousAndNextPages", () => {
   it("calculates page before current page", () => {

@@ -2,12 +2,13 @@ import useConfirmRoute from "@/composables/useConfirmRoute";
 import { describe, expect, it } from "@jest/globals";
 
 import { useRoute } from "vue-router";
-
 jest.mock("vue-router");
+
+const useRouteMock = useRoute as jest.Mock;
 
 describe("useConfirmRoute.js", () => {
   it("determines if page route matches specified route", () => {
-    useRoute.mockReturnValue({
+    useRouteMock.mockReturnValue({
       name: "Home",
     });
     const routeName = "Home";

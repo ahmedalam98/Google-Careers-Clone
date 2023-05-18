@@ -43,7 +43,8 @@
   </header>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import { mapState, mapMutations } from "vuex";
 
 import ActionButton from "../Shared/ActionButton.vue";
@@ -52,7 +53,7 @@ import SubNav from "./SubNav.vue";
 
 import { LOGIN_USER } from "@/store/constants";
 
-export default {
+export default defineComponent({
   name: "MainNav",
   components: {
     ActionButton,
@@ -73,7 +74,7 @@ export default {
   computed: {
     // to fix the MainNav & SubNav are hiding the Hero component
     headerHeightClass() {
-      return (this.$route.name === "JobResults") & this.isLoggedIn
+      return this.$route.name === "JobResults" && this.isLoggedIn
         ? "h-32"
         : "h-16";
     },
@@ -82,5 +83,5 @@ export default {
   methods: {
     ...mapMutations([LOGIN_USER]),
   },
-};
+});
 </script>

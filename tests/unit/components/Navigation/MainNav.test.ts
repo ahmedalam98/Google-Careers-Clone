@@ -1,6 +1,11 @@
 import { describe, it, expect } from "@jest/globals";
 import { shallowMount, RouterLinkStub } from "@vue/test-utils";
 import MainNav from "@/components/Navigation/MainNav.vue";
+import { GlobalState } from "@/store/types";
+
+interface MockStore {
+  state: Partial<GlobalState>;
+}
 
 describe("MainNav.vue", () => {
   // Refactoring Test Suite Method 1) :
@@ -10,7 +15,7 @@ describe("MainNav.vue", () => {
 
   // Refactoring Test Suite Method 2) :
   // -----> pure vanilla funtion returns the repeatable part to make it more readable code if there's a lot of tests.
-  const createConfig = ($store) => {
+  const createConfig = ($store: MockStore) => {
     return {
       global: {
         mocks: {
@@ -82,7 +87,7 @@ describe("MainNav.vue", () => {
       const wrapper = shallowMount(MainNav, createConfig($store));
       const loginButton = wrapper.find("[data-test='login-button']");
       await loginButton.trigger("click");
-      expect(commit.toHaveBeenCalledWith("LOGIN_USER"));
+      expect(commit).toHaveBeenCalledWith("LOGIN_USER");
     });
   });
 
@@ -95,11 +100,6 @@ describe("MainNav.vue", () => {
         },
       };
       const wrapper = shallowMount(MainNav, createConfig($store));
-      // let profileImage = wrapper.find("[data-test='profile-image']");
-      // expect(profileImage.exists()).toBe(false);
-      // const loginButton = wrapper.find("[data-test='login-button']");
-      // await loginButton.trigger("click");
-      // we need to re-find the profile image because the component has been updated so unfortunately if we don't re-find we get a reference to null node.
       const profileImage = wrapper.find("[data-test='profile-image']");
       expect(profileImage.exists()).toBe(true);
     });
@@ -111,10 +111,6 @@ describe("MainNav.vue", () => {
         },
       };
       const wrapper = shallowMount(MainNav, createConfig($store));
-      // let subnav = wrapper.find("[data-test='subnav']");
-      // expect(subnav.exists()).toBe(false);
-      // const loginButton = wrapper.find("[data-test='login-button']");
-      // await loginButton.trigger("click");
       const subnav = wrapper.find("[data-test='subnav']");
       expect(subnav.exists()).toBe(true);
     });
