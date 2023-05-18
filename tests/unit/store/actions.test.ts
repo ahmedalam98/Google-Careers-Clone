@@ -2,12 +2,14 @@ import actions from "@/store/actions";
 import { describe, it, expect, beforeEach } from "@jest/globals";
 import jest from "jest";
 
-import { getJobs } from "@/api/getJobs";
+import getJobs from "@/api/getJobs";
 jest.mock("@/api/getJobs");
+
+const getJobsMock = getJobs as jest.Mock;
 
 describe("actions", () => {
   beforeEach(() => {
-    getJobs.mockResolvedValue([
+    getJobsMock.mockResolvedValue([
       {
         id: 1,
         title: "Software Developer",

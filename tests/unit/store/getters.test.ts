@@ -1,17 +1,17 @@
-import { getters } from "@/store/index.js";
+import getters from "@/store/getters";
 import { describe, it, expect } from "@jest/globals";
 import jest from "jest";
+import { createJob, createState } from "./utils";
 
 describe("getters", () => {
   describe("UNIQUE_ORGANIZATIONS", () => {
     it("finds unique organizations from list of jobs", () => {
-      const state = {
-        jobs: [
-          { organization: "Google" },
-          { organization: "Amazon" },
-          { organization: "Google" },
-        ],
-      };
+      const jobs = [
+        createJob({ organization: "Google" }),
+        createJob({ organization: "Amazon" }),
+        createJob({ organization: "Google" }),
+      ];
+      const state = createState({ jobs });
       const result = getters.UNIQUE_ORGANIZATIONS(state);
       expect(result).toEqual(new Set(["Google", "Amazon"]));
     });
@@ -19,13 +19,12 @@ describe("getters", () => {
 
   describe("UNIQUE_JOB_TYPES", () => {
     it("finds unique job types from list of jobs", () => {
-      const state = {
-        jobs: [
-          { jobType: "Full-time" },
-          { jobType: "Part-time" },
-          { jobType: "Full-time" },
-        ],
-      };
+      const jobs = [
+        createJob({ jobType: "Full-time" }),
+        createJob({ jobType: "Part-time" }),
+        createJob({ jobType: "Full-time" }),
+      ];
+      const state = createState({ jobs });
       const result = getters.UNIQUE_JOB_TYPES(state);
       expect(result).toEqual(new Set(["Full-time", "Part-time"]));
     });
@@ -33,13 +32,12 @@ describe("getters", () => {
 
   describe("UNIQUE_DEGREES", () => {
     it("finds unique degrees from list of jobs", () => {
-      const state = {
-        jobs: [
-          { degree: "Master's" },
-          { degree: "Bachelor's" },
-          { degree: "Master's" },
-        ],
-      };
+      const jobs = [
+        createJob({ degree: "Master's" }),
+        createJob({ degree: "Bachelor's" }),
+        createJob({ degree: "Master's" }),
+      ];
+      const state = createState({ jobs });
       const result = getters.UNIQUE_DEGREES(state);
       expect(result).toEqual(new Set(["Master's", "Bachelor's"]));
     });
@@ -56,14 +54,14 @@ describe("getters", () => {
         INCLUDE_JOB_BY_DEGREE,
       };
 
-      const job = {
+      const job = createJob({
         organization: "Google",
         jobType: "Full-time",
         degree: "Master's",
-      };
-      const state = {
+      });
+      const state = createState({
         jobs: [job],
-      };
+      });
 
       const result = getters.FILTERED_JOBS(state, mockGetters);
       expect(result).toEqual([job]);
