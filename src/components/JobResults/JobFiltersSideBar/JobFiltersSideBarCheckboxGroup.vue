@@ -21,13 +21,14 @@
   </Accordion>
 </template>
 
-<script>
+<script lang="ts">
 import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { defineComponent } from "vue";
 
 import Accordion from "@/components/Shared/Accordion.vue";
-export default {
+export default defineComponent({
   name: "JobFiltersSideBarCheckboxGroup",
   components: {
     Accordion,
@@ -61,5 +62,5 @@ export default {
       selectValue,
     };
   },
-};
+});
 </script>

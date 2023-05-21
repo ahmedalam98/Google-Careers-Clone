@@ -30,9 +30,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import JobFitlersSideBarCheckboxGroup from "./JobFiltersSideBarCheckboxGroup.vue";
+import { defineComponent } from "vue";
 
 /**** COMPOSABLES ****/
 import { useUniqueOrganizations } from "@/store/composables";
@@ -46,7 +47,7 @@ import {
   ADD_SELECTED_DEGREES,
 } from "@/store/constants";
 
-export default {
+export default defineComponent({
   name: "JobFiltersSideBar",
   components: {
     ActionButton,
@@ -66,5 +67,5 @@ export default {
       ADD_SELECTED_DEGREES,
     };
   },
-};
+});
 </script>

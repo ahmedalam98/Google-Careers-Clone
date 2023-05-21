@@ -102,19 +102,30 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
+
 import ActionButton from "@/components/Shared/ActionButton.vue";
-export default {
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
+
+export default defineComponent({
   name: "JobView",
   components: {
     ActionButton,
   },
-  computed: {
-    currentJob() {
-      const jobs = this.$store.state.jobs;
-      const job = jobs.find((job) => job.id === +this.$route.params.id);
-      return job;
-    },
+  setup() {
+    const store = useStore();
+    const route = useRoute();
+
+    // Use computed to get reactive updates when jobs changes
+    const jobs = computed(() => store.state.jobs);
+    const currentJob = computed(() =>
+      jobs.value.find((job) => job.id === +route.params.id)
+    );
+
+    return { currentJob };
   },
-};
+});
 </script>

@@ -40,7 +40,7 @@
   </main>
 </template>
 
-<script>
+<script lang="ts">
 import JobListing from "@/components/JobResults/JobListing.vue";
 
 import { onMounted, computed } from "vue";
@@ -49,7 +49,9 @@ import { useFilteredJobs, useFetchJobsDispatch } from "@/store/composables";
 import useCurrentPage from "@/composables/useCurrentPage";
 import usePreviousAndNextPages from "@/composables/usePreviousAndNextPages";
 
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "JobListings",
   components: {
     JobListing,
@@ -106,5 +108,5 @@ export default {
       displayedJobs,
     };
   },
-};
+});
 </script>
