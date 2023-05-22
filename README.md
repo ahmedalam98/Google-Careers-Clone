@@ -31,6 +31,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
+        <li><a href="#features">Features</a></li>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
@@ -52,6 +53,16 @@
 Google Careers site clone using Vue.js
 
 ![Preview](./src/assets/img/preview-1.png)
+![Preview](./src/assets/img/preview-2.png)
+
+### Features
+
+- Browse fetched jobs with (search + filter) features
+- Filter jobs using:
+  - Title / Skill
+  - Degree
+  - Job Type
+  - Organization
 
 ### Built With
 
