@@ -13,6 +13,9 @@
           />
         </div>
       </div>
+
+      <JobFiltersSideBarSkills header="Skills and Qualifications" />
+
       <!-- header is a static property.So, using a binding for header is unnecessary because it doesn't need to be reactive -->
       <!-- uniqueValues and mutation are dynamic and dependent on the component's props and state-->
       <JobFitlersSideBarCheckboxGroup
@@ -37,8 +40,11 @@
 <script lang="ts">
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import JobFitlersSideBarCheckboxGroup from "./JobFiltersSideBarCheckboxGroup.vue";
-import { defineComponent } from "vue";
+import JobFiltersSideBarSkills from "./JobFiltersSideBarSkills.vue";
+
+import { defineComponent, onMounted } from "vue";
 import { useStore } from "vuex";
+import { useRoute } from "vue-router";
 
 /**** COMPOSABLES ****/
 import { useUniqueOrganizations } from "@/store/composables";
@@ -51,6 +57,7 @@ import {
   ADD_SELECTED_JOB_TYPES,
   ADD_SELECTED_DEGREES,
   CLEAR_USER_JOB_FILTER_SELECTIONS,
+  UPDATE_SKILLS_SEARCH_TERM,
 } from "@/store/constants";
 
 export default defineComponent({
@@ -58,9 +65,18 @@ export default defineComponent({
   components: {
     ActionButton,
     JobFitlersSideBarCheckboxGroup,
+    JobFiltersSideBarSkills,
   },
   setup() {
     const store = useStore();
+
+    // Skills Search Term Feature
+    const parseSkillsSearchTerm = () => {
+      const route = useRoute();
+      const role = route.query.role || "";
+      store.commit(UPDATE_SKILLS_SEARCH_TERM, role);
+    };
+    onMounted(parseSkillsSearchTerm);
 
     const uniqueOrganizations = useUniqueOrganizations();
     const uniqueJobTypes = useUniqueJobTypes();
