@@ -22,12 +22,12 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
+import { ref, defineComponent } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import { defineComponent } from "vue";
-
 import Accordion from "@/components/Shared/Accordion.vue";
+import { CLEAR_USER_JOB_FILTER_SELECTIONS } from "@/store/constants";
+
 export default defineComponent({
   name: "JobFiltersSideBarCheckboxGroup",
   components: {
@@ -52,6 +52,13 @@ export default defineComponent({
     const router = useRouter();
 
     const selectedValues = ref([]);
+
+    // we use store.subscribe to make the store state listens to the specific mutation we are interested in.
+    store.subscribe((mutation) => {
+      if (mutation.type === CLEAR_USER_JOB_FILTER_SELECTIONS) {
+        selectedValues.value = [];
+      }
+    });
 
     const selectValue = () => {
       store.commit(props.mutation, selectedValues.value);

@@ -7,6 +7,8 @@ export const LOGIN_USER = "LOGIN_USER"; // mutation
 export const RECEIVE_JOBS = "RECEIVE_JOBS"; // mutation
 export const FETCH_JOBS = "FETCH_JOBS"; // action
 export const FILTERED_JOBS = "FILTERED_JOBS"; // getter
+export const CLEAR_USER_JOB_FILTER_SELECTIONS =
+  "CLEAR_USER_JOB_FILTER_SELECTIONS"; // mutation
 
 /* ORGANIZATIONS */
 export const ADD_SELECTED_ORGANIZATIONS = "ADD_SELECTED_ORGANIZATIONS"; // mutation

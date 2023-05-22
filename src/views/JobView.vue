@@ -102,15 +102,13 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
+<script>
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
 
-export default defineComponent({
+export default {
   name: "JobView",
   components: {
     ActionButton,
@@ -127,5 +125,5 @@ export default defineComponent({
 
     return { currentJob };
   },
-});
+};
 </script>

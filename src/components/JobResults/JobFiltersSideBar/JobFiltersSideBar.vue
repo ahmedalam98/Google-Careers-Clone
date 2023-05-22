@@ -6,7 +6,11 @@
       <div class="flex flex-row justify-between">
         <h3 class="my-4 text-base font-semibold">What do you want to do?</h3>
         <div class="flex items-center text-sm">
-          <ActionButton text="Clear Filters" type="secondary" />
+          <ActionButton
+            text="Clear Filters"
+            type="secondary"
+            @click="clearUserJobFiltersSelections"
+          />
         </div>
       </div>
       <!-- header is a static property.So, using a binding for header is unnecessary because it doesn't need to be reactive -->
@@ -34,6 +38,7 @@
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import JobFitlersSideBarCheckboxGroup from "./JobFiltersSideBarCheckboxGroup.vue";
 import { defineComponent } from "vue";
+import { useStore } from "vuex";
 
 /**** COMPOSABLES ****/
 import { useUniqueOrganizations } from "@/store/composables";
@@ -45,6 +50,7 @@ import {
   ADD_SELECTED_ORGANIZATIONS,
   ADD_SELECTED_JOB_TYPES,
   ADD_SELECTED_DEGREES,
+  CLEAR_USER_JOB_FILTER_SELECTIONS,
 } from "@/store/constants";
 
 export default defineComponent({
@@ -54,9 +60,14 @@ export default defineComponent({
     JobFitlersSideBarCheckboxGroup,
   },
   setup() {
+    const store = useStore();
+
     const uniqueOrganizations = useUniqueOrganizations();
     const uniqueJobTypes = useUniqueJobTypes();
     const uniqueDegrees = useUniqueDegrees();
+    const clearUserJobFiltersSelections = () => {
+      store.commit(CLEAR_USER_JOB_FILTER_SELECTIONS);
+    };
 
     return {
       uniqueOrganizations,
@@ -65,6 +76,7 @@ export default defineComponent({
       ADD_SELECTED_ORGANIZATIONS,
       ADD_SELECTED_JOB_TYPES,
       ADD_SELECTED_DEGREES,
+      clearUserJobFiltersSelections,
     };
   },
 });
